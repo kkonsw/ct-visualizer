@@ -41,7 +41,7 @@ namespace graphics_lab2
 
         public void SetUpIntensities()
         {
-            int arraySize = X * Y;
+            /*int arraySize = X * Y;
             maxIntensityArray = new short[arraySize];
             short intensity = 0;
             short maxIntensity = 0;          
@@ -55,6 +55,31 @@ namespace graphics_lab2
                     for (int k = 0; k < Z; ++k)
                     {
                         int pixelNumber = i + j * X + k * X * Y;
+                        intensity = array[pixelNumber];
+
+                        if (intensity > maxIntensity)
+                        {
+                            maxIntensity = intensity;
+                        }
+                    }
+
+                    maxIntensityArray[i + j * X] = maxIntensity;
+                }*/
+
+            int arraySize = X * Z;
+            maxIntensityArray = new short[arraySize];
+            short intensity = 0;
+            short maxIntensity = 0;
+
+            for (int i = 0; i < X; ++i)
+                for (int j = 0; j < Z; ++j)
+                {
+                    intensity = 0;
+                    maxIntensity = 0;
+
+                    for (int k = 0; k < Y; ++k)
+                    {
+                        int pixelNumber = i + j * X * Y + k * X ;
                         intensity = array[pixelNumber];
 
                         if (intensity > maxIntensity)

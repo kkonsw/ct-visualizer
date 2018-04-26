@@ -17,7 +17,8 @@ namespace graphics_lab2
             GL.ShadeModel(ShadingModel.Smooth);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(0, Bin.X, 0, Bin.Y, -1, 1);
+            GL.Ortho(0, Bin.X, 0, Bin.Z, -1, 1);
+            //GL.Ortho(0, Bin.Y, 0, Bin.Z, -1, 1);
             GL.Viewport(0, 0, width, height);
         }
 
@@ -61,6 +62,23 @@ namespace graphics_lab2
                     value = Bin.array[x_coord + 1 + y_coord * Bin.X + layerNumber * Bin.X * Bin.Y];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord + 1, y_coord);
+
+                    //1 вершина
+                    /*value = Bin.array[x_coord + layerNumber * Bin.X + y_coord * Bin.X * Bin.Y];
+                    GL.Color3(TransferFunction(value));
+                    GL.Vertex2(x_coord, y_coord);
+                    ////2 вершина
+                    value = Bin.array[x_coord + layerNumber * Bin.X + (y_coord + 1) * Bin.X * Bin.Y];
+                    GL.Color3(TransferFunction(value));
+                    GL.Vertex2(x_coord, y_coord + 1);
+                    ////3 вершина
+                    value = Bin.array[x_coord + 1 + layerNumber * Bin.X + (y_coord + 1) * Bin.X * Bin.Y];
+                    GL.Color3(TransferFunction(value));
+                    GL.Vertex2(x_coord + 1, y_coord + 1);
+                    ////4 вершина
+                    value = Bin.array[x_coord + 1 + layerNumber * Bin.X + y_coord * Bin.X * Bin.Y];
+                    GL.Color3(TransferFunction(value));
+                    GL.Vertex2(x_coord + 1, y_coord);*/
                 }
             }
             GL.End();
@@ -69,31 +87,35 @@ namespace graphics_lab2
         public void MIPDrawQuads()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            //GL.MatrixMode(MatrixMode.Modelview);
+            //GL.LoadIdentity();
+            //GL.Scale(1.0, 5.0, 1.0);
             GL.Begin(BeginMode.Quads);
             for (int x_coord = 0; x_coord < Bin.X - 1; x_coord++)
             {
-                for (int y_coord = 0; y_coord < Bin.Y - 1; y_coord++)
+                for (int y_coord = 0; y_coord < Bin.Z - 1; y_coord++)
                 {
                     short value;
                     // #1
-                    value = MIP.maxIntensityArray[x_coord + y_coord * Bin.X];
+                    value = MIP.maxIntensityArray[x_coord + y_coord * Bin.X ];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord, y_coord);
                     // #2
-                    value = MIP.maxIntensityArray[x_coord + (y_coord + 1) * Bin.X];
+                    value = MIP.maxIntensityArray[x_coord + y_coord * Bin.X ];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord, y_coord + 1);
                     // #3
-                    value = MIP.maxIntensityArray[x_coord + 1 + (y_coord + 1) * Bin.X];
+                    value = MIP.maxIntensityArray[x_coord + y_coord * Bin.X ];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord + 1, y_coord + 1);
                     // #4
-                    value = MIP.maxIntensityArray[x_coord + 1 + y_coord * Bin.X];
+                    value = MIP.maxIntensityArray[x_coord + y_coord * Bin.X ];
                     GL.Color3(TransferFunction(value));
                     GL.Vertex2(x_coord + 1, y_coord);
                 }
             }
             GL.End();
+            //GL.MatrixMode(MatrixMode.Projection);
         }
 
         Bitmap textureImage;
