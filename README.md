@@ -1,4 +1,4 @@
-# CV Visualizer
+# CT Visualizer
 
 C# with OpenTK, Visual Studio
 
