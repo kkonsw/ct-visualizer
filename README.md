@@ -1,1 +1,7 @@
-# graphics-lab2
+# CV Visualizer
+
+C# with OpenTK, Visual Studio
+
+-------------------
+
+![](screenshots/mip.png)
